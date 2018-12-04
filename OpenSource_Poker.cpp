@@ -327,12 +327,6 @@ private:
 						cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL ";
 						cin >> action;
 					}
-					while (action == BET_or_CALL && players[4].money <= 0)
-					{
-						cout << "You don't have money to bet/call." << endl;
-						cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL ";
-						cin >> action;
-					}
 				}
 
 				cout << endl;
