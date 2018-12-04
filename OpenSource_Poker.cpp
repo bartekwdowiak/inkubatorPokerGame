@@ -31,7 +31,7 @@ void press_Enter()
 void sleep(int time)
 {
 #ifdef __linux__ 
-	sleep(time);
+	usleep(time*1000);
 #elif _WIN32
 	Sleep(time);
 #endif
@@ -718,7 +718,7 @@ private:
 
 			std::cout << "\n\n\n\n\n\n\n";
 			std::cout << "\t\t\t\t\t ------ ROUND " << i + 1 << " ------\n\n\n";
-			sleep(1000);
+            sleep(1000);
 			deck1.shuffle();
 
 			/* pre-flop */
@@ -808,7 +808,7 @@ private:
 
 			printWinningHand(roundWinner);
 
-			players[roundWinner].money += pot
+			players[roundWinner].money += pot;
 
 			i++;
 		}
