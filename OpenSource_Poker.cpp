@@ -263,21 +263,21 @@ private:
 		if (players[playerNum].cards[0].rank < 8 && players[playerNum].cards[1].rank < 8)
 		{
 			if (players[playerNum].cards[0].rank != players[playerNum].cards[1].rank)
-				return 0;
-			else
 				return 1;
+			else
+				return 2;
 		}
 
 		else if (players[playerNum].cards[0].rank < 10 && players[playerNum].cards[1].rank < 10)
 		{
 			if (players[playerNum].cards[0].rank != players[playerNum].cards[1].rank)
-				return 1;
-			else
 				return 2;
+			else
+				return 3;
 		}
 		else
 		{
-			return 2;
+			return 3;
 		}
 	}
 
@@ -324,6 +324,12 @@ private:
 					while (action < FLOP || action > BET_or_CALL)
 					{
 						cout << "Invalid number pressed." << endl;
+						cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL ";
+						cin >> action;
+					}
+					while (action == BET_or_CALL && players[4].money <= 0)
+					{
+						cout << "You don't have money to bet/call." << endl;
 						cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL ";
 						cin >> action;
 					}
@@ -380,7 +386,7 @@ private:
 				rational = rand() % 2;
 				if (rational)
 				{
-					action = computerAction(k % players_count) + 1;
+					action = computerAction(k % players_count);
 				}
 				else
 				{
