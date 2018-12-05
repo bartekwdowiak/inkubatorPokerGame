@@ -263,21 +263,21 @@ private:
 		if (players[playerNum].cards[0].rank < 8 && players[playerNum].cards[1].rank < 8)
 		{
 			if (players[playerNum].cards[0].rank != players[playerNum].cards[1].rank)
-				return 0;
-			else
 				return 1;
+			else
+				return 2;
 		}
 
 		else if (players[playerNum].cards[0].rank < 10 && players[playerNum].cards[1].rank < 10)
 		{
 			if (players[playerNum].cards[0].rank != players[playerNum].cards[1].rank)
-				return 1;
-			else
 				return 2;
+			else
+				return 3;
 		}
 		else
 		{
-			return 2;
+			return 3;
 		}
 	}
 
@@ -386,7 +386,7 @@ private:
 				rational = rand() % 2;
 				if (rational)
 				{
-					action = computerAction(k % players_count) + 1;
+					action = computerAction(k % players_count);
 				}
 				else
 				{
@@ -679,6 +679,26 @@ private:
 		sleep(3);
 	}
 
+	void printLosingHands(int winner)
+	{
+		using std::cout;
+		using std::endl;
+
+		for (int i = 0; i < players_count; i++)
+		{
+			if (players[i].round == 1 && i != winner)
+			{
+				cout << "   " << players[i].name << ":" << endl;
+				cout << "   ___   ___ " << endl;
+				cout << "  | " << ranks[players[i].cards[0].rank] << " | | " << ranks[players[i].cards[1].rank] << " |" << endl;
+				cout << "  | " << suits[players[i].cards[0].suit] << " | | " << suits[players[i].cards[1].suit] << " |" << endl;
+				cout << "  |___| |___|" << endl;
+				cout << endl << endl;
+				sleep(3);
+			}
+		}
+	}
+
 	/* main gameplay function*/
 	void startGame()
 	{
@@ -815,6 +835,7 @@ private:
 			std::cout << "\n\n";
 
 			printWinningHand(roundWinner);
+			printLosingHands(roundWinner);
 
 			players[roundWinner].money += pot;
 
