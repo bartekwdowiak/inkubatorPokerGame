@@ -327,11 +327,18 @@ private:
 						cout << "Invalid number pressed." << endl;
 						cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL ";
 						cin >> action;
+						
+						while (action == BET_or_CALL && players[player_index].money <= 0)
+						{
+							cout << "You don't have money to bet/call." << endl;
+							cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK ";
+							cin >> action;
+						}
 					}
 					while (action == BET_or_CALL && players[player_index].money <= 0)
 					{
-						cout << "You don't have money to bet/call." << endl;
-						cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL ";
+					 	cout << "You don't have money to bet/call." << endl;
+						cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK ";
 						cin >> action;
 					}
 				}
@@ -352,10 +359,24 @@ private:
 				{
 					if (betOn)
 					{
-						pot += betOn;
-						players[player_index].money -= betOn;
-						players[player_index].goodToGo = 1;
-						cout << "\t+ " << players[player_index].name << " bets " << betOn << "$\n";
+						if (betOn < players[player_index].money)
+						{
+							pot += betOn;
+							players[player_index].money -= betOn;
+							players[player_index].goodToGo = 1;
+							cout << "\t++ " << players[player_index].name << " calls! " << endl;
+						}
+						else if (players[player_index].money == 0)
+						{
+							cout << "\t+ " << players[player_index].name << " checks." << endl;
+						}
+						else
+						{
+							pot += players[player_index].money;
+							players[player_index].money -= players[player_index].money;
+							players[player_index].goodToGo = 1;
+							cout << "\t+ " << players[player_index].name << " goes all in " << endl;
+						}
 					}
 					else
 					{
@@ -393,7 +414,7 @@ private:
 				{
 					action = (rand() % 3) + 1;
 				}
-				if (action == FLOP)
+				if (action == FLOP && players[k % players_count].money != 0)
 				{
 					players[k % players_count].round = 0;
 					cout << "\t- " << players[k % players_count].name << " flops..." << endl;
@@ -403,18 +424,48 @@ private:
 					cout << "\t+ " << players[k % players_count].name << " checks." << endl;
 					continue;
 				}
+				else if (players[k % players_count].money == 0 && !betOn)
+				{
+					cout << "\t+ " << players[k % players_count].name << " checks." << endl;
+					continue;
+				}
 				else
 				{
 					if (betOn)
 					{
-						pot += betOn;
-						players[k % players_count].money -= betOn;
-						cout << "\t++ " << players[k % players_count].name << " calls!" << endl;
-						players[k % players_count].goodToGo = 1;
+						if (betOn < players[k % players_count].money)
+						{
+							pot += betOn;
+							players[k % players_count].money -= betOn;
+							cout << "\t++ " << players[k % players_count].name << " calls!" << endl;
+							players[k % players_count].goodToGo = 1;
+						}
+						else if (players[k % players_count].money == 0)
+						{
+							continue;
+						}
+						else
+						{
+							pot += players[k % players_count].money;
+							players[k % players_count].money -= players[k % players_count].money;
+							players[k % players_count].goodToGo = 1;
+							cout << "\t+ " << players[k % players_count].name << " goes all in " << endl;
+						}
 					}
 					else
 					{
 						bet = (rand() % (players[k % players_count].money / 3) + 10);
+						if (bet > players[k % players_count].money)
+						{
+							bet = players[k % players_count].money;
+							pot += bet;
+							players[k % players_count].money -= bet;
+							cout << '\a';
+							cout << "\t+ " << players[k % players_count].name << " goes all in " << endl;
+							betOn = bet;
+							players[k % players_count].goodToGo = 1;
+							continue;
+						}
 						pot += bet;
 						players[k % players_count].money -= bet;
 						cout << '\a';
@@ -451,11 +502,24 @@ private:
 						}
 						else
 						{
-							pot += betOn;
-							players[player_index].money -= betOn;
-							players[player_index].goodToGo = 1;
-
-							cout << "\t+ " << players[player_index].name << " bets " << betOn << "$\n";
+							if (betOn < players[player_index].money)
+							{
+								pot += betOn;
+								players[player_index].money -= betOn;
+								players[player_index].goodToGo = 1;
+								cout << "\t+ " << players[player_index].name << " bets " << betOn << "$\n";
+							}
+							else if (players[player_index].money == 0)
+							{
+								cout << "\t+ " << players[player_index].name << " waits. " << endl;
+							}
+							else
+							{
+								pot += players[player_index].money;
+								players[player_index].money -= players[player_index].money;
+								players[player_index].goodToGo = 1;
+								cout << "\t+ " << players[player_index].name << " goes all in " << endl;
+							}
 						}
 					}
 				}
@@ -465,17 +529,31 @@ private:
 					if (players[k % players_count].round == 0 || players[k % players_count].goodToGo == 1)
 						continue;
 					action = (rand() % 2) + 1;
-					if (action == FLOP)
+					if (action == FLOP && players[k % players_count].money != 0)
 					{
 						players[k % players_count].round = 0;
 						cout << "\t- " << players[k % players_count].name << " flops..." << endl;
 					}
 					else
 					{
-						pot += betOn;
-						players[k % players_count].money -= betOn;
-						cout << "\t++ " << players[k % players_count].name << " calls!" << endl;
-						players[k % players_count].goodToGo = 1;
+						if (betOn < players[k % players_count].money)
+						{
+							pot += betOn;
+							players[k % players_count].money -= betOn;
+							cout << "\t++ " << players[k % players_count].name << " calls!" << endl;
+							players[k % players_count].goodToGo = 1;
+						}
+						else if (players[k % players_count].money == 0)
+						{
+							cout << "\t+ " << players[k % players_count].name << " checks." << endl;
+						}
+						else
+						{
+							pot += players[k % players_count].money;
+							players[k % players_count].money -= players[k % players_count].money;
+							players[k % players_count].goodToGo = 1;
+							cout << "\t+ " << players[k % players_count].name << " goes all in " << endl;
+						}
 					}
 				}
 			}
