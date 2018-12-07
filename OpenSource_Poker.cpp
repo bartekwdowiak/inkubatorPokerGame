@@ -71,24 +71,24 @@ public:
 				cards[i * ranks_count + j].rank = j;
 			}
 		}
-		suits[0] = "D";
-		suits[1] = "S";
-		suits[2] = "H";
-		suits[3] = "C";
+		suits[0] = "Diamonds";
+		suits[1] = "Spades  ";
+		suits[2] = "Hearts  ";
+		suits[3] = "Clubs   ";
 
-		ranks[0] = "2";
-		ranks[1] = "3";
-		ranks[2] = "4";
-		ranks[3] = "5";
-		ranks[4] = "6";
-		ranks[5] = "7";
-		ranks[6] = "8";
-		ranks[7] = "9";
-		ranks[8] = "T";
-		ranks[9] = "J";
-		ranks[10] = "Q";
-		ranks[11] = "K";
-		ranks[12] = "A";
+		ranks[0] = "2       ";
+		ranks[1] = "3       ";
+		ranks[2] = "4       ";
+		ranks[3] = "5       ";
+		ranks[4] = "6       ";
+		ranks[5] = "7       ";
+		ranks[6] = "8       ";
+		ranks[7] = "9       ";
+		ranks[8] = "10      ";
+		ranks[9] = "Joker   ";
+		ranks[10] = "Queen   ";
+		ranks[11] = "King    ";
+		ranks[12] = "Ace     ";
 	}
 
 	void print()
@@ -210,18 +210,18 @@ public:
 			<< ((players[2].playing) ? (players[2].name) : "    ") << endl;
 		cout << "   $" << setw(4) << ((players[0].playing) ? (players[0].money) : 0) << "         $" << setw(4) << ((players[1].playing) ? (players[1].money) : 0)
 			<< "           $" << setw(4) << ((players[2].playing) ? (players[2].money) : 0) << endl;
-		cout << "     _____________________________" << endl;
-		cout << "    / " << ((bind == 0) ? "@" : " ") << "            " << ((bind == 1) ? "@" : " ") << "            " << ((bind == 2) ? "@" : " ") << " \\" << endl;
-		cout << "   /  ___   ___   ___   ___   ___  \\" << endl;
-		cout << "   | | " << ((tableCards[0].rank) >= 0 ? ranks[tableCards[0].rank] : " ") << " | | " << ((tableCards[1].rank) >= 0 ? ranks[tableCards[1].rank] : " ") << " | | " << ((tableCards[2].rank) >= 0 ? ranks[tableCards[2].rank] : " ") << " | | "
-			<< ((tableCards[3].rank) >= 0 ? ranks[tableCards[3].rank] : " ") << " | | " << ((tableCards[4].rank) >= 0 ? ranks[tableCards[4].rank] : " ") << " | |" << endl;
-		cout << "   | | " << ((tableCards[0].rank) >= 0 ? suits[tableCards[0].suit] : " ") << " | | " << ((tableCards[1].rank) >= 0 ? suits[tableCards[1].suit] : " ") << " | | " << ((tableCards[2].rank) >= 0 ? suits[tableCards[2].suit] : " ") << " | | "
-			<< ((tableCards[3].rank) >= 0 ? suits[tableCards[3].suit] : " ") << " | | " << ((tableCards[4].rank) >= 0 ? suits[tableCards[4].suit] : " ") << " | |" << endl;
-		cout << "   | |___| |___| |___| |___| |___| |" << endl;
-		cout << "   |                               |" << endl;
-		cout << "   |	       Pot = $" << setw(4) << pot << "         |" << endl;
-		cout << "   \\                               /" << endl;
-		cout << "    \\_" << ((bind == 5) ? "@" : "_") << "_____________" << ((bind == 4) ? "@" : "_") << "___________" << ((bind == 3) ? "@" : "_") << "_/" << endl;
+		cout << "     ________________________________________________________________" << endl;
+		cout << "    / " << ((bind == 0) ? "@" : " ") << "            " << ((bind == 1) ? "@" : " ") << "            " << ((bind == 2) ? "@" : " ") << "                                    \\" << endl;
+		cout << "   /  __________   __________   __________   __________   __________  \\" << endl;
+		cout << "   | | " << ((tableCards[0].rank) >= 0 ? ranks[tableCards[0].rank] : "        ") << " | | " << ((tableCards[1].rank) >= 0 ? ranks[tableCards[1].rank] : "        ") << " | | " << ((tableCards[2].rank) >= 0 ? ranks[tableCards[2].rank] : "        ") << " | | "
+			<< ((tableCards[3].rank) >= 0 ? ranks[tableCards[3].rank] : "        ") << " | | " << ((tableCards[4].rank) >= 0 ? ranks[tableCards[4].rank] : "        ") << " | |" << endl;
+		cout << "   | | " << ((tableCards[0].rank) >= 0 ? suits[tableCards[0].suit] : "        ") << " | | " << ((tableCards[1].rank) >= 0 ? suits[tableCards[1].suit] : "        ") << " | | " << ((tableCards[2].rank) >= 0 ? suits[tableCards[2].suit] : "        ") << " | | "
+			<< ((tableCards[3].rank) >= 0 ? suits[tableCards[3].suit] : "        ") << " | | " << ((tableCards[4].rank) >= 0 ? suits[tableCards[4].suit] : "        ") << " | |" << endl;
+		cout << "   | |__________| |__________| |__________| |__________| |__________| |" << endl;
+		cout << "   |                                                                  |" << endl;
+		cout << "   |	       Pot = $" << setw(4) << pot << "                                            |" << endl;
+		cout << "   \\                                                                  /" << endl;
+		cout << "    \\_" << ((bind == 5) ? "@" : "_") << "_____________" << ((bind == 4) ? "@" : "_") << "___________" << ((bind == 3) ? "@" : "_") << "____________________________________/" << endl;
 		cout << endl;
 		cout << "  " << ((players[5].playing) ? (players[5].name) : "      ") << "          " << ((players[player_index].playing) ? (players[player_index].name) : "      ") << "         "
 			<< ((players[3].playing) ? (players[3].name) : "    ") << endl;
@@ -231,10 +231,10 @@ public:
 		if (players[player_index].round)
 		{
 			cout << "   Your hand:" << endl;
-			cout << "    ___    ___" << endl;
+			cout << "    __________    __________" << endl;
 			cout << "   | " << ranks[players[player_index].cards[0].rank] << " |  | " << ranks[players[player_index].cards[1].rank] << " |" << endl;
 			cout << "   | " << suits[players[player_index].cards[0].suit] << " |  | " << suits[players[player_index].cards[1].suit] << " |" << endl;
-			cout << "   |___|  |___|" << endl << endl;
+			cout << "   |__________|  |__________|" << endl << endl;
 		}
 
 		sleep(3);
@@ -822,10 +822,10 @@ private:
 		qsort(winningHand, 5, sizeof(Card), compareCards);
 
 		cout << "   The winning hand:" << endl;
-		cout << "   ___   ___   ___   ___   ___" << endl;
+		cout << "   __________   __________   __________   __________   __________" << endl;
 		cout << "  | " << ranks[winningHand[0].rank] << " | | " << ranks[winningHand[1].rank] << " | | " << ranks[winningHand[2].rank] << " | | " << ranks[winningHand[3].rank] << " | | " << ranks[winningHand[4].rank] << " |" << endl;
 		cout << "  | " << suits[winningHand[0].suit] << " | | " << suits[winningHand[1].suit] << " | | " << suits[winningHand[2].suit] << " | | " << suits[winningHand[3].suit] << " | | " << suits[winningHand[4].suit] << " |" << endl;
-		cout << "  |___| |___| |___| |___| |___|" << endl;
+		cout << "  |__________| |__________| |__________| |__________| |__________|" << endl;
 		cout << endl << endl;
 		sleep(3);
 	}
@@ -840,10 +840,10 @@ private:
 			if (players[i].round == 1 && i != winner)
 			{
 				cout << "   " << players[i].name << ":" << endl;
-				cout << "   ___   ___ " << endl;
+				cout << "   __________   __________ " << endl;
 				cout << "  | " << ranks[players[i].cards[0].rank] << " | | " << ranks[players[i].cards[1].rank] << " |" << endl;
 				cout << "  | " << suits[players[i].cards[0].suit] << " | | " << suits[players[i].cards[1].suit] << " |" << endl;
-				cout << "  |___| |___|" << endl;
+				cout << "  |__________| |__________|" << endl;
 				cout << endl << endl;
 				sleep(3);
 			}
