@@ -224,11 +224,11 @@ public:
 		}
 		cout << endl;
 
-		cout << "    / " << ((bind == 0) ? "@" : " ") << "            " << ((bind == 1) ? "@" : " ") << "            " << ((bind == 2) ? "@" : " ") << "                                    ";
+		cout << "    / " << ((bind == 0) ? "@" : " ") << "                   " << ((bind == 1) ? "@" : " ") << "                   " << ((bind == 2) ? "@" : " ") << "                     " << ((bind == 3) ? "@" : " ");
 
 		for (int i = 4; i < ((players_count+1) / 2); i++)
 		{
-			cout << "                     ";
+			cout << "                    " << ((bind == i && players_count%2==0) ? "@" : " ");
 		}
 
 		cout << "\\" << endl;
@@ -298,11 +298,11 @@ public:
 
 		cout << "/" << endl;
 		
-		cout << "    \\_" << ((bind == 5) ? "@" : "_") << "_____________" << ((bind == 4) ? "@" : "_") << "___________" << ((bind == 3) ? "@" : "_") << "____________________________________";
+		cout << "    \\_" << ((bind == (players_count-1)) ? "@" : "_") << "____________________" << ((bind == (players_count-2)) ? "@" : "_") << "__________________" << ((bind == (players_count-3)) ? "@" : "_") << "_____________________" << ((bind == (players_count-4) ) ? "@" : "_");
 		
 		for (int i = 4; i < ((players_count+1) / 2); i++)
 		{
-			cout << "_____________________";
+			cout << "____________________" << ((bind == (players_count-(i+1))) ? "@" : "_");
 		}
 
 		cout << "/" << endl;
@@ -334,7 +334,7 @@ public:
 	}
 
 private:
-	static const int players_count = 9;
+	static const int players_count = 11;
 	static const int player_index = 4;
 	Player players[players_count];
 	Deck deck1;
@@ -990,6 +990,8 @@ private:
 			{
 				bind++;
 			}
+			bind=5;
+
 
 			/* paying bind */
 			pot = 20;
