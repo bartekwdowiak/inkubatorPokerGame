@@ -386,6 +386,19 @@ private:
 		return false;
 	}
 
+	int canFlop()
+	{
+		int count = 0;
+		for (int i = 0; i < players_count; i++)
+		{
+			if (players[i].round == 1)
+			{
+				count++;
+			}
+		}
+		return count;
+	}
+
 	void takeBets()
 	{
 		using std::cout;
@@ -542,7 +555,7 @@ private:
 				if (rational)
 				{
 					action = computerAction(k % players_count);
-					while (action == RAISE && !betOn)
+					while ((action == RAISE && !betOn) || (action == FLOP && canFlop() == 1))
 					{
 						action = (rand() % 4) + 1;
 					}
@@ -550,7 +563,7 @@ private:
 				else
 				{
 					action = (rand() % 4) + 1;
-					while (action == RAISE && !betOn)
+					while ((action == RAISE && !betOn) || (action == FLOP && canFlop() == 1))
 					{
 						action = (rand() % 4) + 1;
 					}
@@ -698,8 +711,8 @@ private:
 					if (players[k % players_count].round == 0 || players[k % players_count].goodToGo == 1)
 						continue;
 					action = (rand() % 2) + 1;
-					if (action == FLOP && players[k % players_count].money != 0)
-					{
+					if (action == FLOP && players[k % players_count].money != 0 && canFlop() > 1)
+					{ 
 						players[k % players_count].round = 0;
 						cout << "\t- " << players[k % players_count].name << " flops..." << endl;
 					}
@@ -990,8 +1003,6 @@ private:
 			{
 				bind++;
 			}
-			bind=5;
-
 
 			/* paying bind */
 			pot = 20;
